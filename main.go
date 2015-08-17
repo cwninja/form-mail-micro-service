@@ -24,6 +24,11 @@ func main() {
 
 		if _, err := client.MessagesSend(message); err != nil {
 			log.Println(err)
+			w.WriteHeader(500)
+			w.Write([]byte("Message send failed"))
+		} else {
+			w.WriteHeader(200)
+			w.Write([]byte("Message sent."))
 		}
 	})
 	log.Fatal(http.ListenAndServe(":8888", nil))
